@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 
 export default function SurveyForm() {
     const [formData, setFormData] = useState({
@@ -62,11 +61,7 @@ export default function SurveyForm() {
     if (submitted) {
         return (
             <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex items-center justify-center p-4">
-                <motion.div
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 max-w-md w-full text-center border border-white/20"
-                >
+                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 max-w-md w-full text-center border border-white/20 animate-fade-in">
                     <div className="text-6xl mb-4">🎉</div>
                     <h2 className="text-3xl font-bold text-white mb-4">¡Gracias por tu feedback!</h2>
                     <p className="text-gray-300 mb-6">
@@ -78,17 +73,14 @@ export default function SurveyForm() {
                     >
                         Volver al inicio
                     </button>
-                </motion.div>
+                </div>
             </div>
         );
     }
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex items-center justify-center p-4">
-            <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 max-w-2xl w-full border border-white/20"
+            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 max-w-2xl w-full border border-white/20 animate-fade-in"
             >
                 <div className="text-center mb-8">
                     <h1 className="text-4xl font-bold text-white mb-2">Encuesta de Satisfacción</h1>
@@ -153,8 +145,8 @@ export default function SurveyForm() {
                                 type="button"
                                 onClick={() => setFormData({ ...formData, wouldRecommend: true })}
                                 className={`flex-1 py-3 rounded-lg border transition-all ${formData.wouldRecommend === true
-                                        ? 'bg-green-600 border-green-500 text-white'
-                                        : 'bg-white/5 border-white/20 text-gray-300 hover:bg-white/10'
+                                    ? 'bg-green-600 border-green-500 text-white'
+                                    : 'bg-white/5 border-white/20 text-gray-300 hover:bg-white/10'
                                     }`}
                             >
                                 👍 Sí
@@ -163,8 +155,8 @@ export default function SurveyForm() {
                                 type="button"
                                 onClick={() => setFormData({ ...formData, wouldRecommend: false })}
                                 className={`flex-1 py-3 rounded-lg border transition-all ${formData.wouldRecommend === false
-                                        ? 'bg-red-600 border-red-500 text-white'
-                                        : 'bg-white/5 border-white/20 text-gray-300 hover:bg-white/10'
+                                    ? 'bg-red-600 border-red-500 text-white'
+                                    : 'bg-white/5 border-white/20 text-gray-300 hover:bg-white/10'
                                     }`}
                             >
                                 👎 No
@@ -198,7 +190,7 @@ export default function SurveyForm() {
                         {loading ? 'Enviando...' : 'Enviar Encuesta'}
                     </button>
                 </form>
-            </motion.div>
+            </div>
         </div>
     );
 }

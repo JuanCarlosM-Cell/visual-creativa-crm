@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import api from '../api';
 
 interface Survey {
@@ -80,53 +79,34 @@ export default function SurveyDashboard() {
             {stats && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {/* Total Responses */}
-                    <motion.div
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6"
-                    >
+                    <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6">
                         <div className="text-gray-400 text-sm mb-2">Total de Respuestas</div>
                         <div className="text-4xl font-bold text-white mb-1">{stats.totalSurveys}</div>
                         <div className="text-green-400 text-sm">👥 Personas probaron el CRM</div>
-                    </motion.div>
+                    </div>
 
                     {/* Avg Satisfaction */}
-                    <motion.div
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.1 }}
-                        className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6"
-                    >
+                    <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6">
                         <div className="text-gray-400 text-sm mb-2">Satisfacción Promedio</div>
                         <div className="text-4xl font-bold text-white mb-1">{stats.avgSatisfaction}/5</div>
                         <div className="text-yellow-400 text-xl">{renderStars(Math.round(stats.avgSatisfaction))}</div>
-                    </motion.div>
+                    </div>
 
                     {/* Avg Ease of Use */}
-                    <motion.div
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.2 }}
-                        className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6"
-                    >
+                    <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6">
                         <div className="text-gray-400 text-sm mb-2">Facilidad de Uso</div>
                         <div className="text-4xl font-bold text-white mb-1">{stats.avgEaseOfUse}/5</div>
                         <div className="text-yellow-400 text-xl">{renderStars(Math.round(stats.avgEaseOfUse))}</div>
-                    </motion.div>
+                    </div>
 
                     {/* Recommendation */}
-                    <motion.div
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.3 }}
-                        className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6"
-                    >
+                    <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6">
                         <div className="text-gray-400 text-sm mb-2">Recomendación</div>
                         <div className="text-4xl font-bold text-white mb-1">{stats.recommendPercentage}%</div>
                         <div className="text-green-400 text-sm">
                             👍 {stats.recommendCount}/{stats.totalSurveys} lo recomiendan
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             )}
 
@@ -160,12 +140,9 @@ export default function SurveyDashboard() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/10">
-                            {surveys.map((survey, index) => (
-                                <motion.tr
+                            {surveys.map((survey) => (
+                                <tr
                                     key={survey.id}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: index * 0.05 }}
                                     className="hover:bg-white/5 transition-colors"
                                 >
                                     <td className="px-6 py-4 whitespace-nowrap">
@@ -189,8 +166,8 @@ export default function SurveyDashboard() {
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <span
                                             className={`px-2 py-1 text-xs rounded-full ${survey.wouldRecommend
-                                                    ? 'bg-green-500/20 text-green-400'
-                                                    : 'bg-red-500/20 text-red-400'
+                                                ? 'bg-green-500/20 text-green-400'
+                                                : 'bg-red-500/20 text-red-400'
                                                 }`}
                                         >
                                             {survey.wouldRecommend ? '👍 Sí' : '👎 No'}
@@ -204,7 +181,7 @@ export default function SurveyDashboard() {
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
                                         {new Date(survey.createdAt).toLocaleDateString('es-ES')}
                                     </td>
-                                </motion.tr>
+                                </tr>
                             ))}
                         </tbody>
                     </table>
