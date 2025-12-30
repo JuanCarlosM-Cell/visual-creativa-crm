@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { clientsApi, projectsApi } from '../api';
-import type { Client, Project, ProjectStatus } from '../types';
+import { clientsApi } from '../api';
+import type { Client } from '../types';
 import { Link } from 'react-router-dom';
 import Modal from '../components/Modal';
 import Loading from '../components/Loading';
