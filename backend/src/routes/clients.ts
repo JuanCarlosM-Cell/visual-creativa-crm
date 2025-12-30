@@ -1,10 +1,9 @@
 import { Router } from 'express';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '../lib/prisma';
 import { z } from 'zod';
 import { authenticate, requireRole } from '../middleware/auth';
 
 const router = Router();
-const prisma = new PrismaClient();
 
 const createClientSchema = z.object({
     name: z.string().min(1, 'El nombre es requerido'),

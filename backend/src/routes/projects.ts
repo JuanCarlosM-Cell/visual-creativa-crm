@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import { PrismaClient, ProjectStatus } from '@prisma/client';
+import { prisma } from '../lib/prisma';
+import { ProjectStatus } from '@prisma/client';
 import { z } from 'zod';
 import { sendProjectCompletionEmail } from '../services/emailService';
 import { authenticate, requireRole } from '../middleware/auth';
 
 const router = Router();
-const prisma = new PrismaClient();
 
 const createProjectSchema = z.object({
     clientId: z.string().uuid('ID de cliente inválido'),
