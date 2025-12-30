@@ -1,28 +1,9 @@
-import nodemailer from 'nodemailer';
+import sgMail from '@sendgrid/mail';
 
-// Configuración del transporte
-// Prioridad: SendGrid (mejor para Render) > Gmail
-const transporter = nodemailer.createTransport(
-    process.env.SENDGRID_API_KEY
-        ? {
-            host: 'smtp.sendgrid.net',
-            port: 587,
-            secure: false,
-            auth: {
-                user: 'apikey',
-                pass: process.env.SENDGRID_API_KEY,
-            },
-        }
-        : {
-            host: 'smtp.gmail.com',
-            port: 587,
-            secure: false,
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
-            },
-        }
-);
+// Configurar SendGrid con API Key
+if (process.env.SENDGRID_API_KEY) {
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+}
 
 export const sendProjectCompletionEmail = async (
     to: string,
@@ -30,15 +11,25 @@ export const sendProjectCompletionEmail = async (
     projectName: string,
     links: { label?: string; url: string }[]
 ) => {
+    // Verificar que SendGrid esté configurado
+    if (!process.env.SENDGRID_API_KEY) {
+        console.warn('⚠️ SENDGRID_API_KEY no configurado. No se puede enviar email.');
+        throw new Error('SendGrid no está configurado');
+    }
+
+    if (!process.env.EMAIL_USER) {
+        console.warn('⚠️ EMAIL_USER no configurado.');
+        throw new Error('EMAIL_USER no está configurado');
+    }
 
     // Construir lista HTML de links
     const linksHtml = links.map(link =>
         `<li><strong>${link.label || 'Link'}:</strong> <a href="${link.url}">${link.url}</a></li>`
     ).join('');
 
-    const mailOptions = {
-        from: `"Visual Creativa CRM" <${process.env.EMAIL_USER}>`,
+    const msg = {
         to: to,
+        from: process.env.EMAIL_USER, // Debe ser el email verificado en SendGrid
         subject: `✅ Entrega Final: ${projectName}`,
         html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
@@ -59,15 +50,19 @@ export const sendProjectCompletionEmail = async (
                     <strong>El Equipo de Visual Creativa</strong>
                 </p>
             </div>
-        `
+        `,
     };
 
     try {
-        const info = await transporter.sendMail(mailOptions);
-        console.log('Correo enviado: %s', info.messageId);
-        return info;
-    } catch (error) {
-        console.error('Error enviando correo:', error);
+        const response = await sgMail.send(msg);
+        console.log('✅ Correo enviado exitosamente via SendGrid API');
+        console.log('Response status:', response[0].statusCode);
+        return response;
+    } catch (error: any) {
+        console.error('❌ Error enviando correo via SendGrid:', error);
+        if (error.response) {
+            console.error('SendGrid error body:', error.response.body);
+        }
         throw error;
     }
 };
