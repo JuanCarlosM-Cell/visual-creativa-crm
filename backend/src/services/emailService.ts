@@ -3,7 +3,9 @@ import nodemailer from 'nodemailer';
 // Configuración del transporte (Gmail ejemplo)
 // El usuario deberá configurar EMAIL_USER y EMAIL_PASS en su .env
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, // true for 465, false for other ports
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS

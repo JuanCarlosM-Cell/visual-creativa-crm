@@ -8,7 +8,7 @@ Este guion está diseñado para que presentes tu proyecto de forma profesional y
 ---
 
 ## 2. Captación de Clientes: El Formulario Público (1 minuto)
-**Acción:** Abre una pestaña en modo incógnito (o asegúrate de haber cerrado sesión) y ve a: `http://localhost:5173/registro`
+**Acción:** Abre una pestaña en modo incógnito y ve a tu enlace de Vercel + `/registro` (ej: `https://visual-creativa-crm.vercel.app/registro`).
 
 **Tú:** "Todo comienza aquí. Hemos creado un portal público para que las empresas interesadas puedan registrarse directamente sin intermediarios. Esto automatiza nuestra entrada de 'Leads'."
 
