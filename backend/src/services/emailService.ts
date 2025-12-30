@@ -1,16 +1,28 @@
 import nodemailer from 'nodemailer';
 
-// Configuración del transporte (Gmail ejemplo)
-// El usuario deberá configurar EMAIL_USER y EMAIL_PASS en su .env
-const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    }
-});
+// Configuración del transporte
+// Prioridad: SendGrid (mejor para Render) > Gmail
+const transporter = nodemailer.createTransport(
+    process.env.SENDGRID_API_KEY
+        ? {
+            host: 'smtp.sendgrid.net',
+            port: 587,
+            secure: false,
+            auth: {
+                user: 'apikey',
+                pass: process.env.SENDGRID_API_KEY,
+            },
+        }
+        : {
+            host: 'smtp.gmail.com',
+            port: 587,
+            secure: false,
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+            },
+        }
+);
 
 export const sendProjectCompletionEmail = async (
     to: string,
