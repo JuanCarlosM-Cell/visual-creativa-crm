@@ -8,6 +8,7 @@ import projectsRoutes from './routes/projects';
 import tasksRoutes from './routes/tasks';
 import linksRoutes from './routes/links';
 import publicRoutes from './routes/public';
+import surveysRoutes from './routes/surveys';
 import { errorHandler } from './middleware/errorHandler';
 
 dotenv.config();
@@ -32,6 +33,7 @@ app.use('/projects', projectsRoutes);
 app.use('/tasks', tasksRoutes);
 app.use('/links', linksRoutes);
 app.use('/public', publicRoutes);
+app.use('/surveys', surveysRoutes);
 
 // Error handler (debe ser el último middleware)
 app.use(errorHandler);

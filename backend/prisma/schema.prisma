@@ -82,3 +82,16 @@ enum ProjectStatus {
   EnProduccion
   Entregado
 }
+
+model Survey {
+  id                 String   @id @default(uuid())
+  name               String?
+  email              String?
+  satisfactionRating Int      // 1-5
+  easeOfUseRating    Int      // 1-5
+  wouldRecommend     Boolean
+  comments           String?
+  createdAt          DateTime @default(now())
+
+  @@map("surveys")
+}

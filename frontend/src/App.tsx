@@ -10,6 +10,8 @@ import ClientDetail from './pages/ClientDetail';
 import RegisterClient from './pages/RegisterClient';
 import ProjectDetail from './pages/ProjectDetail';
 import AdminUsers from './pages/AdminUsers';
+import SurveyForm from './pages/SurveyForm';
+import SurveyDashboard from './pages/SurveyDashboard';
 import Loading from './components/Loading';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode; adminOnly?: boolean }> = ({
@@ -52,6 +54,7 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path="/login" element={<Login />} />
                     <Route path="/registro" element={<RegisterClient />} />
+                    <Route path="/encuesta" element={<SurveyForm />} />
                     <Route
                         path="/"
                         element={
@@ -98,6 +101,16 @@ const App: React.FC = () => {
                             <ProtectedRoute adminOnly>
                                 <AppLayout>
                                     <AdminUsers />
+                                </AppLayout>
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/admin/encuestas"
+                        element={
+                            <ProtectedRoute adminOnly>
+                                <AppLayout>
+                                    <SurveyDashboard />
                                 </AppLayout>
                             </ProtectedRoute>
                         }
